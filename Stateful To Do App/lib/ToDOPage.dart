@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Style.dart';
+
 class ToDOPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
@@ -10,6 +12,7 @@ class ToDOPage extends StatefulWidget{
 }
 
 class ToDOPageView extends State<ToDOPage> {
+  List TODOlist=[{"1":"1"}, {"1":"1"} , {"1":"1"}, {"1":"1"}];
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,8 +24,38 @@ class ToDOPageView extends State<ToDOPage> {
          child: Column(
             children: [
               Expanded(
-                  child:  Text('input form ')),  //uporer part a form
-              Expanded(child:  Text('List view ')), //nicher part a list view 
+                  flex: 10 ,
+                  child: Row(
+                    children: [
+                       Expanded(flex: 70,  child: TextFormField(decoration: AppInputDecora("list "),)) ,
+                      // Expanded(flex: 30 , child: ElevatedButton(onPressed: (){}, child: Text('ADD'), style: AppButtonstyle(),)) ,
+                       Expanded(flex: 20 , child: Padding(padding: EdgeInsets.only(left: 5) , child: ElevatedButton(onPressed: (){}, child: Text('ADD'), style: AppButtonstyle(),), )   ) ,
+                    ],
+                  )
+
+              ),      //uporer part a form
+
+
+              Expanded(
+                   flex: 90,
+                  child:  ListView.builder(
+                    itemCount: TODOlist.length,
+                    itemBuilder: (context,index) {
+                      return Card(
+                         child: Sizebox50(
+                           Row(
+                             children: [
+                               Expanded(flex: 80,  child: Text("ITEM")) ,
+                             //  Expanded(flex: 20 , child: TextButton(onPressed: (){}, child: Icon(Icons.delete), style: AppButtonstyle(),)) ,
+                               Expanded(flex: 20 , child: TextButton(onPressed: (){}, child: Icon(Icons.delete), style: AppButtonstyle(),)) ,
+                             ],
+                           )
+                         )
+                      );
+                    },
+                  )
+               ),
+              //nicher part a list view
             ],
          ),
        ),
