@@ -12,13 +12,40 @@ class ToDOPage extends StatefulWidget{
 }
 
 class ToDOPageView extends State<ToDOPage> {
-  List TODOlist=[{"1":"1"}, {"1":"1"} , {"1":"1"}, {"1":"1"}] ;
+ // List TODOlist=[{"1":"1"}, {"1":"1"} , {"1":"1"}, {"1":"1"}] ;
+  List TODOlist=[] ;
   String Item = " ";
-
+  // Item gula chnage text  form ar Onchanged listerner  item take read korbo
   MyInputonChange(content)
   {
-     TODOlist.add(content);
+    // TODOlist.add(content);
+     //item modhe set na kore todo list a set kortesi
+
+     // TODOlist.add({"item" : content});
+
+     // ar pore list a add kortesii
+
+    // Run time value sathe view take refresh korte hobe  oijnno sob gula kati SetState ke use
+
+    setState(() {
+     // TODOlist.add({"item" : content});
+      Item = content;
+    });
+
   }
+
+  AddItem(){
+    setState(() {
+      TODOlist.add({"item" : Item});
+
+    });
+  }
+
+ RemoveItem (index) {
+    setState(() {
+      TODOlist.removeAt(index);
+    });
+ }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -33,13 +60,15 @@ class ToDOPageView extends State<ToDOPage> {
                   flex: 10 ,
                   child: Row(
                     children: [
-                       Expanded(flex: 70,  child: TextFormField(onChanged: (content) {MyInputonChange(value)},  decoration: AppInputDecora("list "),)) ,
+                       Expanded(flex: 70,  child: TextFormField(onChanged: (content) {MyInputonChange(content);},  decoration: AppInputDecora("list "),)) ,
+                      // onchanged ar COntent take pass korachiii
                       // Expanded(flex: 30 , child: ElevatedButton(onPressed: (){}, child: Text('ADD'), style: AppButtonstyle(),)) ,
-                       Expanded(flex: 20 , child: Padding(padding: EdgeInsets.only(left: 5) , child: ElevatedButton(onPressed: (){}, child: Text('ADD'), style: AppButtonstyle(),), )   ) ,
+                       Expanded(flex: 20 , child: Padding(padding: EdgeInsets.only(left: 5) , child: ElevatedButton(onPressed: (){AddItem();}, child: Text('ADD'), style: AppButtonstyle(),), )   ) ,
                     ],
                   )
 
               ),      //uporer part a form
+
 
 
               Expanded(
@@ -51,9 +80,10 @@ class ToDOPageView extends State<ToDOPage> {
                          child: Sizebox50(
                            Row(
                              children: [
-                               Expanded(flex: 80,  child: Text("ITEM")) ,
+                               Expanded(flex: 80,  child: Text(TODOlist[index]['item'].toString())) ,
                              //  Expanded(flex: 20 , child: TextButton(onPressed: (){}, child: Icon(Icons.delete), style: AppButtonstyle(),)) ,
-                               Expanded(flex: 20 , child: TextButton(onPressed: (){}, child: Icon(Icons.delete), )) ,
+                              // Expanded(flex: 20 , child: TextButton(onPressed: (){RemoveItem(TODOlist[index]);}, child: Icon(Icons.delete), )) , bhul line
+                               Expanded(flex: 20 , child: TextButton(onPressed: (){RemoveItem(index);}, child: Icon(Icons.delete), )) ,
                              ],
                            )
                          )
